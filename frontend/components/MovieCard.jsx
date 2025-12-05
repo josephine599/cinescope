@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-import "./movieCard.css"; // your existing CSS
+import "./movieCard.css";
 
 function MovieCard({ movie }) {
-  const [rating, setRating] = useState(movie.rating || 0); // local state for stars
+  const [rating, setRating] = useState(movie.rating || 0);
 
   const handleRate = (value) => {
     setRating(value);
-    // Optionally send the rating to your backend
     fetch(`http://127.0.0.1:8000/movies/${movie.id}/rate/`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -14,12 +13,22 @@ function MovieCard({ movie }) {
     }).catch((err) => console.error("Error sending rating:", err));
   };
 
+  const addToWatchlist = () => {
+    const list = JSON.parse(localStorage.getItem("watchlist") || "[]");
+    if (!list.find((m) => m.id === movie.id)) {
+      list.push(movie);
+      localStorage.setItem("watchlist", JSON.stringify(list));
+      alert("Added to watchlist!");
+    } else {
+      alert("Already in watchlist");
+    }
+  };
+
   return (
     <div className="movie-card">
       <img src={movie.poster} alt={movie.title} className="movie-poster" />
       <h3>{movie.title}</h3>
 
-      {/* Rating Stars */}
       <div className="rating">
         {[1, 2, 3, 4, 5].map((star) => (
           <span
@@ -33,7 +42,6 @@ function MovieCard({ movie }) {
       </div>
 
       <div className="actions">
-        {/* Watch button opens YouTube trailer */}
         <button
           onClick={() => {
             const youtubeSearch = `https://www.youtube.com/results?search_query=${encodeURIComponent(
@@ -44,6 +52,9 @@ function MovieCard({ movie }) {
         >
           Watch
         </button>
+
+        <button onClick={addToWatchlist}>Watchlist</button>
+
         <button>Download</button>
       </div>
     </div>

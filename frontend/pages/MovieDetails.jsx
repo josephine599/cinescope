@@ -6,6 +6,19 @@ const MovieDetails = () => {
   const { id } = useParams();
   const [movie, setMovie] = useState(null);
 
+  const addToWatchlist = () => {
+    const list = JSON.parse(localStorage.getItem("watchlist") || "[]");
+    const exists = list.find((m) => m.id === movie.id);
+
+    if (!exists) {
+      list.push(movie);
+      localStorage.setItem("watchlist", JSON.stringify(list));
+      alert("Added to watchlist!");
+    } else {
+      alert("Already in watchlist!");
+    }
+  };
+
   useEffect(() => {
     (async () => {
       try {
@@ -26,6 +39,10 @@ const MovieDetails = () => {
         <h1>{movie.title}</h1>
         <p className="meta">Rating: {movie.vote_average} • Release: {movie.release_date || "N/A"}</p>
         <p className="overview">{movie.overview}</p>
+
+        <button onClick={addToWatchlist} className="watchlist-btn">
+          + Add to Watchlist
+        </button>
       </div>
     </div>
   );

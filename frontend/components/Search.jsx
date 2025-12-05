@@ -7,7 +7,6 @@ function Search({ movies, setFilteredMovies }) {
     const q = e.target.value;
     setQuery(q);
 
-    // filter movies based on title
     const filtered = movies.filter((movie) =>
       movie.title.toLowerCase().includes(q.toLowerCase())
     );

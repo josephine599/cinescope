@@ -1,29 +1,30 @@
-import React, { useEffect, useState, useContext } from "react";
-import { getWatchlist } from "../api/movieApi.js";
-import MovieRow from "../components/MovieRow.jsx";
-import { AuthContext } from "../context/AuthContext.jsx";
+import React, { useEffect, useState } from "react";
+import MovieCard from "../components/MovieCard.jsx";
 
-const Watchlist = () => {
-  const [movies, setMovies] = useState([]);
-  const { token } = useContext(AuthContext);
+const WatchlistPage = () => {
+  const [list, setList] = useState([]);
 
   useEffect(() => {
-    (async () => {
-      try {
-        const list = await getWatchlist(token);
-        setMovies(list);
-      } catch (e) {
-        console.error(e);
-      }
-    })();
-  }, [token]);
+    try {
+      const saved = JSON.parse(localStorage.getItem("watchlist") || "[]");
+      setList(saved);
+    } catch {
+      setList([]);
+    }
+  }, []);
 
   return (
-    <div style={{ padding: 20 }}>
+    <div className="watchlist-page">
       <h2>Your Watchlist</h2>
-      <MovieRow title="Saved" movies={movies} />
+      <div className="watchlist-grid">
+        {list.length === 0 ? (
+          <p>Your watchlist is empty</p>
+        ) : (
+          list.map((m) => <MovieCard key={m.id} movie={m} />)
+        )}
+      </div>
     </div>
   );
 };
 
-export default Watchlist;
+export default WatchlistPage;
