@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import MovieCard from "../components/MovieCard.jsx";
 import "../src/App.css";
-import Search from "../components/Search.jsx";
+import { getMovies } from "../api/movieApi.js";
 
 function Home() {
   const [movies, setMovies] = useState([]);
@@ -9,14 +9,11 @@ function Home() {
   useEffect(() => {
     async function fetchMovies() {
       try {
-        const response = await fetch("http://127.0.0.1:8000/movies/");
-        const data = await response.json();
-
-        // ⭐ Convert TMDB poster path to real usable image URL
+        const data = await getMovies();
         setMovies(
           data.map((movie) => ({
             ...movie,
-            poster: "https://image.tmdb.org/t/p/w500" + movie.poster_path,
+            poster: movie.poster_full, // Use the full poster URL from movies.js
           }))
         );
       } catch (error) {
