@@ -1,0 +1,8 @@
+.horizontal-scroll {
+  display: flex;
+  overflow-x: auto;
+  padding-bottom: 10px;
+}
+.horizontal-scroll::-webkit-scrollbar {
+  display: none;
+}

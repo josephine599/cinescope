@@ -1,0 +1,111 @@
+/* ===== Hero Section ===== */
+.hero {
+  height: 60vh;
+  width: 100%;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: flex-end;
+  padding: 3rem;
+  color: white;
+  position: relative;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40%;
+  background: linear-gradient(to top, #111, transparent);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+.hero-buttons button {
+  margin-right: 1rem;
+  padding: 0.5rem 1rem;
+  background-color: #e50914;
+  border: none;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.hero-rating {
+  margin-top: 1rem;
+}
+
+/* ===== Movie Rows ===== */
+.movie-row {
+  margin-top: 2rem;
+  padding: 0 2rem;
+}
+
+.movie-row h2 {
+  color: white;
+  margin-bottom: 1rem;
+}
+
+.movie-row-scroll {
+  display: flex;
+  overflow-x: auto;
+  gap: 1rem;
+  padding-bottom: 1rem;
+  scroll-snap-type: x mandatory;
+}
+
+.movie-card {
+  position: relative;
+  flex: 0 0 auto;
+  width: 200px;
+  scroll-snap-align: start;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.3s;
+}
+
+.movie-card:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+.movie-card img {
+  width: 100%;
+  display: block;
+}
+
+.movie-card-info {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: rgba(0,0,0,0.7);
+  color: white;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.movie-card:hover .movie-card-info {
+  opacity: 1;
+}
+
+.movie-card-buttons {
+  margin-top: 0.5rem;
+}
+
+.movie-card-buttons button {
+  margin-right: 0.5rem;
+  padding: 0.3rem 0.6rem;
+  background-color: #e50914;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
