@@ -32,8 +32,6 @@ Cinescope is a **React-based movie discovery and watchlist application** that al
 ### Installation
 
 1. Clone the repository:
-git clone <https://github.com/josephine599/cinescope/tree/main>
+git clone <https://github.com/josephine599/cinescope>
 cd cinescope
 ```bash
-git clone <YOUR_REPO_URL>
-cd cinescope
